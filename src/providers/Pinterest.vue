@@ -20,24 +20,21 @@
 </template>
 
 <script>
-  // Variables
-  const description = document.querySelector('meta[name="description"]')
-  const image = document.querySelector('link[rel="apple-touch-icon"]')
-  
+
   export default {
     name: 'VueGoodsharePinterest',
     props: {
       page_url: {
         type: String,
-        default: document.location.href
+        default: null
       },
       page_description: {
         type: String,
-        default: (description) ? description.content : ''
+        default: null
       },
       page_image: {
         type: String,
-        default: (image) ? image.src : ''
+        default: null
       },
       button_design: {
         type: String,
@@ -70,7 +67,7 @@
       getRandomInt: (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
       },
-      
+
       /**
        * Slice thousand integer and add `k` letter.
        *
@@ -80,7 +77,7 @@
       sliceThousandInt: (number) => {
         return (number / 1000).toFixed(1) + 'k'
       },
-      
+
       /**
        * Show share window.
        *
@@ -97,10 +94,10 @@
           + 'canonicalUrl=' + encodeURIComponent(this.$props.page_url)
           + '&description=' + encodeURIComponent(this.$props.page_description)
           + '&media=' + encodeURIComponent(this.$props.page_image)
-        
+
         return window.open(share_url, 'Share this', window_config + 'toolbar=no,menubar=no,scrollbars=no')
       },
-      
+
       /**
        * Get share counter.
        *
@@ -110,16 +107,16 @@
         // Variables
         const script = document.createElement('script')
         const callback = 'vue_goodshare_' + this.getRandomInt(1, 2345)
-        
+
         // Create `script` tag with share count URL
         script.src = 'https://api.pinterest.com/v1/urls/count.json?'
           + 'url=' + encodeURIComponent(this.$props.page_url)
           + '&callback=' + callback
-        
+
         // Add `script` tag with share count URL
         // to end of `body` tag
         document.body.appendChild(script)
-        
+
         // Set share count to `counter_pinterest` v-model
         window[callback] = (count) => {
           if (count) {
@@ -150,7 +147,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  
+
   [class^="icon-"]:before, [class*=" icon-"]:before {
     font-family: 'Fontello';
     font-style: normal;
@@ -168,11 +165,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   .icon-pinterest:before {
     content: '\e803';
   }
-  
+
   // Colors
   $pinterest_main_color: rgb(189, 8, 28);
   $pinterest_main_color_opacity: rgba(189, 8, 28, .5);
@@ -180,12 +177,12 @@
   $background_white_color: rgb(254, 254, 254);
   $text_white_color: rgb(254, 254, 254);
   $text_white_color_opacity: rgba(254, 254, 254, .5);
-  
+
   // Reset
   .button-social * {
     box-sizing: border-box;
   }
-  
+
   // Button Social link style
   .button-social {
     display: inline-flex;
@@ -196,25 +193,25 @@
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
   }
-  
+
   // Button Social link style on hover
   .button-social:hover {
     opacity: .9;
   }
-  
+
   // Button Social round edges
   .button-social__square_edges {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
   }
-  
+
   // Button pinterest style `flat`
   .pinterest__design__flat {
     background-color: $pinterest_main_color;
     color: $text_white_color;
   }
-  
+
   // Button pinterest style `gradient`
   .pinterest__design__gradient {
     background-image: linear-gradient(bottom, $pinterest_main_color, $gradient_color);
@@ -224,30 +221,30 @@
     background-image: -ms-linear-gradient(bottom, $pinterest_main_color, $gradient_color);
     color: $text_white_color;
   }
-  
+
   // Button pinterest style `outline`
   .pinterest__design__outline {
     background-color: $background_white_color;
     border: 1px solid $pinterest_main_color;
     color: $pinterest_main_color;
   }
-  
+
   // Title
   .title-social {
     margin-left: 0;
   }
-  
+
   // Counter
   .counter-pinterest {
     margin-left: 6px;
     padding-left: 6px;
   }
-  
+
   .pinterest__design__flat .counter-pinterest,
   .pinterest__design__gradient .counter-pinterest {
     border-left: 1px solid $text_white_color_opacity;
   }
-  
+
   .pinterest__design__outline .counter-pinterest {
     border-left: 1px solid $pinterest_main_color_opacity;
   }

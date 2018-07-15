@@ -20,11 +20,11 @@
     props: {
       page_url: {
         type: String,
-        default: document.location.href
+        default: null
       },
       page_title: {
         type: String,
-        default: document.title
+        default: null
       },
       button_design: {
         type: String,
@@ -60,7 +60,7 @@
         const share_url = 'https://twitter.com/share?'
           + 'url=' + encodeURIComponent(this.$props.page_url)
           + '&text=' + encodeURIComponent(this.$props.page_title)
-        
+
         return window.open(share_url, 'Share this', window_config + 'toolbar=no,menubar=no,scrollbars=no')
       }
     }
@@ -80,7 +80,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  
+
   [class^="icon-"]:before, [class*=" icon-"]:before {
     font-family: 'Fontello';
     font-style: normal;
@@ -98,22 +98,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   .icon-twitter:before {
     content: '\e801';
   }
-  
+
   // Colors
   $twitter_main_color: rgb(29, 161, 242);
   $gradient_color: rgb(49, 181, 255);
   $background_white_color: rgb(254, 254, 254);
   $text_white_color: rgb(254, 254, 254);
-  
+
   // Reset
   .button-social * {
     box-sizing: border-box;
   }
-  
+
   // Button Social link style
   .button-social {
     display: inline-flex;
@@ -124,25 +124,25 @@
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
   }
-  
+
   // Button Social link style on hover
   .button-social:hover {
     opacity: .9;
   }
-  
+
   // Button Social round edges
   .button-social__square_edges {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
   }
-  
+
   // Button twitter style `flat`
   .twitter__design__flat {
     background-color: $twitter_main_color;
     color: $text_white_color;
   }
-  
+
   // Button twitter style `gradient`
   .twitter__design__gradient {
     background-image: linear-gradient(bottom, $twitter_main_color, $gradient_color);
@@ -152,14 +152,14 @@
     background-image: -ms-linear-gradient(bottom, $twitter_main_color, $gradient_color);
     color: $text_white_color;
   }
-  
+
   // Button twitter style `outline`
   .twitter__design__outline {
     background-color: $background_white_color;
     border: 1px solid $twitter_main_color;
     color: $twitter_main_color;
   }
-  
+
   // Title
   .title-social {
     margin-left: 6px;
